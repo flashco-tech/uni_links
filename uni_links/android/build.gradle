@@ -1,34 +1,95 @@
+//group 'name.avioli.unilinks'
+//version '0.4.0'
+//
+//buildscript {
+//    repositories {
+//        google()
+//        jcenter()
+//    }
+//
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:3.5.3'
+//    }
+//}
+//
+//rootProject.allprojects {
+//    repositories {
+//        google()
+//        jcenter()
+//    }
+//}
+//
+//apply plugin: 'com.android.library'
+//
+//android {
+//    compileSdkVersion 28
+//
+//    defaultConfig {
+//        minSdkVersion 16
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    }
+//    lintOptions {
+//        disable 'InvalidPackage'
+//    }
+//}
+
+
+
+
 group 'name.avioli.unilinks'
-version '0.4.0'
+version '1.0-SNAPSHOT'
 
 buildscript {
+    ext.kotlin_version = '1.8.21' // You can update to 1.9.0 for latest compatibility
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        // Updated Android Gradle Plugin to a newer version
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    namespace "name.avioli.unilinks" // Required for newer AGP versions
+    compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 21
+        targetSdkVersion 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8" // Ensures compatibility with Java 1.8
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
